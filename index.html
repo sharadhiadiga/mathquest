@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Math Quest - Gamified Math Learning</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="app">
+        <!-- Login Page -->
+        <div id="loginPage" class="page active">
+            <div class="login-container">
+                <div class="login-card">
+                    <div class="logo">
+                        <h1>Math Quest</h1>
+                        <p>Embark on your mathematical adventure</p>
+                    </div>
+                    
+                    <div class="auth-tabs">
+                        <button class="tab-btn active" onclick="switchTab('login')">Login</button>
+                        <button class="tab-btn" onclick="switchTab('register')">Register</button>
+                    </div>
+                    
+                    <form id="loginForm" class="auth-form">
+                        <div class="form-group">
+                            <label for="loginUsername">Username</label>
+                            <input type="text" id="loginUsername" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="loginPassword">Password</label>
+                            <input type="password" id="loginPassword" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Login</button>
+                    </form>
+                    
+                    <form id="registerForm" class="auth-form hidden">
+                        <div class="form-group">
+                            <label for="registerName">Full Name</label>
+                            <input type="text" id="registerName" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="registerUsername">Username</label>
+                            <input type="text" id="registerUsername" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="registerPassword">Password</label>
+                            <input type="password" id="registerPassword" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Register</button>
+                    </form>
+                    
+                    <div id="authMessage" class="message"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Header -->
+        <header id="header" class="header hidden">
+            <div class="container">
+                <div class="header-content">
+                    <div class="header-left">
+                        <h1 class="logo-text" onclick="showPage('topicMap')">Math Quest</h1>
+                        <span id="welcomeText" class="welcome-text"></span>
+                    </div>
+                    <div class="header-right">
+                        <div class="stats">
+                            <div class="stat-item xp">
+                                <span class="stat-icon">⚡</span>
+                                <span id="headerXP">0 XP</span>
+                            </div>
+                            <div class="stat-item level">
+                                <span class="stat-icon">🏆</span>
+                                <span id="headerLevel">Level 1</span>
+                            </div>
+                            <div class="stat-item badges">
+                                <span class="stat-icon">🎖️</span>
+                                <span id="headerBadges">0 Badges</span>
+                            </div>
+                        </div>
+                        <nav class="nav">
+                            <button class="nav-btn" onclick="showPage('topicMap')">Topics</button>
+                            <button class="nav-btn" onclick="showPage('dashboard')">Progress</button>
+                            <button class="nav-btn logout" onclick="logout()">Logout</button>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Topic Map Page -->
+        <div id="topicMapPage" class="page">
+            <div class="container">
+                <div class="page-header">
+                    <h2>Choose Your Mathematical Adventure</h2>
+                    <p>Select a topic to begin your quest. Complete problems to earn XP and unlock new areas!</p>
+                </div>
+                
+                <div class="topics-grid">
+                    <div class="topic-card" data-topic="algebra">
+                        <div class="topic-header algebra">
+                            <span class="topic-icon">🧮</span>
+                        </div>
+                        <div class="topic-content">
+                            <h3>Algebra Island</h3>
+                            <p>Master variables, equations, and expressions</p>
+                            <div class="topic-stats">
+                                <span class="xp-reward">+10 XP per question</span>
+                                <span class="progress">0% Complete</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 0%"></div>
+                            </div>
+                            <button class="btn btn-primary topic-btn">Start Quest</button>
+                        </div>
+                    </div>
+                    
+                    <div class="topic-card" data-topic="geometry">
+                        <div class="topic-header geometry">
+                            <span class="topic-icon">📐</span>
+                        </div>
+                        <div class="topic-content">
+                            <h3>Geometry Grove</h3>
+                            <p>Explore shapes, angles, and spatial reasoning</p>
+                            <div class="topic-stats">
+                                <span class="xp-reward">+12 XP per question</span>
+                                <span class="progress">0% Complete</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 0%"></div>
+                            </div>
+                            <button class="btn btn-primary topic-btn">Start Quest</button>
+                        </div>
+                    </div>
+                    
+                    <div class="topic-card locked" data-topic="trigonometry">
+                        <div class="topic-header trigonometry">
+                            <span class="topic-icon">📊</span>
+                            <div class="lock-overlay">
+                                <span class="lock-icon">🔒</span>
+                                <span class="lock-text">Level 3 Required</span>
+                            </div>
+                        </div>
+                        <div class="topic-content">
+                            <h3>Trigonometry Territory</h3>
+                            <p>Conquer sine, cosine, and tangent functions</p>
+                            <div class="topic-stats">
+                                <span class="xp-reward">+15 XP per question</span>
+                                <span class="progress">0% Complete</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 0%"></div>
+                            </div>
+                            <button class="btn btn-primary topic-btn" disabled>Locked</button>
+                        </div>
+                    </div>
+                    
+                    <div class="topic-card locked" data-topic="calculus">
+                        <div class="topic-header calculus">
+                            <span class="topic-icon">∫</span>
+                            <div class="lock-overlay">
+                                <span class="lock-icon">🔒</span>
+                                <span class="lock-text">Level 5 Required</span>
+                            </div>
+                        </div>
+                        <div class="topic-content">
+                            <h3>Calculus Castle</h3>
+                            <p>Master derivatives and integrals</p>
+                            <div class="topic-stats">
+                                <span class="xp-reward">+20 XP per question</span>
+                                <span class="progress">0% Complete</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 0%"></div>
+                            </div>
+                            <button class="btn btn-primary topic-btn" disabled>Locked</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quiz Page -->
+        <div id="quizPage" class="page">
+            <div class="container">
+                <div class="quiz-container">
+                    <div class="quiz-header">
+                        <h2 id="quizTopicTitle">Algebra Island</h2>
+                        <div class="quiz-progress">
+                            <span id="questionNumber">Question 1 of 10</span>
+                            <div class="progress-bar">
+                                <div id="quizProgressBar" class="progress-fill" style="width: 10%"></div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="quiz-content">
+                        <div class="question-card">
+                            <h3 id="questionText">Loading question...</h3>
+                            
+                            <div id="inputAnswer" class="answer-input">
+                                <input type="number" id="answerInput" placeholder="Enter your answer..." step="any">
+                            </div>
+                            
+                            <div id="multipleChoice" class="multiple-choice hidden">
+                                <div class="options-grid">
+                                    <button class="option-btn" data-option="0"></button>
+                                    <button class="option-btn" data-option="1"></button>
+                                    <button class="option-btn" data-option="2"></button>
+                                    <button class="option-btn" data-option="3"></button>
+                                </div>
+                            </div>
+                            
+                            <div id="quizActions" class="quiz-actions">
+                                <button id="submitAnswer" class="btn btn-primary">Submit Answer</button>
+                            </div>
+                            
+                            <div id="resultSection" class="result-section hidden">
+                                <div id="resultIcon" class="result-icon"></div>
+                                <div id="resultText" class="result-text"></div>
+                                <div id="correctAnswer" class="correct-answer"></div>
+                                <div id="xpGained" class="xp-gained"></div>
+                                <button id="nextQuestion" class="btn btn-primary">Next Question</button>
+                            </div>
+                        </div>
+                        
+                        <div class="quiz-stats">
+                            <div class="stat">
+                                <span class="label">Score:</span>
+                                <span id="currentScore">0/0</span>
+                            </div>
+                            <div class="stat">
+                                <span class="label">Accuracy:</span>
+                                <span id="currentAccuracy">0%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Dashboard Page -->
+        <div id="dashboardPage" class="page">
+            <div class="container">
+                <div class="page-header">
+                    <h2>Your Math Quest Progress</h2>
+                    <p id="dashboardWelcome">Keep up the great work!</p>
+                </div>
+                
+                <div class="stats-overview">
+                    <div class="stat-card xp">
+                        <div class="stat-icon">⚡</div>
+                        <div class="stat-value" id="totalXP">0</div>
+                        <div class="stat-label">Total XP</div>
+                        <div class="stat-subtitle" id="xpToNext">0 XP to next level</div>
+                    </div>
+                    
+                    <div class="stat-card level">
+                        <div class="stat-icon">🏆</div>
+                        <div class="stat-value" id="currentLevel">1</div>
+                        <div class="stat-label">Current Level</div>
+                        <div class="level-progress">
+                            <div class="progress-bar">
+                                <div id="levelProgressBar" class="progress-fill" style="width: 0%"></div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card badges">
+                        <div class="stat-icon">🎖️</div>
+                        <div class="stat-value" id="badgeCount">0</div>
+                        <div class="stat-label">Badges Earned</div>
+                        <div class="stat-subtitle" id="badgesRemaining">5 more to collect</div>
+                    </div>
+                    
+                    <div class="stat-card topics">
+                        <div class="stat-icon">🎯</div>
+                        <div class="stat-value" id="topicsMastered">0</div>
+                        <div class="stat-label">Topics Mastered</div>
+                        <div class="stat-subtitle">80%+ completion rate</div>
+                    </div>
+                </div>
+                
+                <div class="dashboard-sections">
+                    <div class="section">
+                        <h3>Topic Progress</h3>
+                        <div id="topicProgressList" class="topic-progress-list">
+                            <!-- Topic progress items will be inserted here -->
+                        </div>
+                    </div>
+                    
+                    <div class="section">
+                        <h3>Badge Collection</h3>
+                        <div id="badgeCollection" class="badge-collection">
+                            <!-- Badges will be inserted here -->
+                        </div>
+                    </div>
+                    
+                    <div class="section">
+                        <h3>Statistics</h3>
+                        <div class="statistics-grid">
+                            <div class="stat-item">
+                                <div class="stat-number" id="questionsAttempted">0</div>
+                                <div class="stat-desc">Questions Attempted</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-number" id="correctAnswers">0</div>
+                                <div class="stat-desc">Correct Answers</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-number" id="accuracyRate">0%</div>
+                                <div class="stat-desc">Accuracy Rate</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
