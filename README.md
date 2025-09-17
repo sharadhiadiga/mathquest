@@ -55,13 +55,13 @@ Welcome to **Math Quest** – a fun and interactive platform where learning math
 
 ### 📂 Project Structure
 mathquest/
-├── index.html         # Main interface structure
-├── styles.css         # Custom styling
-├── script.js          # Quiz logic and user management
-├── tailwind.config.js # Tailwind CSS configuration
-├── package-lock.json  # Dependency versions
-├── .gitignore         # Files excluded from Git tracking
-├── README.md          # Project documentation
+├── index.html         
+├── styles.css         
+├── script.js          
+├── tailwind.config.js 
+├── package-lock.json 
+├── .gitignore        
+├── README.md          
 
 ### 🎯 How to Use
 
