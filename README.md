@@ -68,6 +68,7 @@ The platform combines gamification with personalized progress tracking to make l
 ## Prerequisites
 
 - Node.js (v18 or later)
+- npm
 - Git
 
 ### Clone the Repository
@@ -78,17 +79,25 @@ git clone https://github.com/sharadhiadiga/mathquest.git
 cd mathquest
 ```
 
-### Install Dependencies
+---
+
+## Install Dependencies
 
 ```bash
 npm install
 ```
 
-### Start the Development Server
+---
+
+## Start the Development Server
 
 ```bash
 npm run dev
 ```
+
+---
+
+## Access the Application
 
 Open your browser and visit:
 
